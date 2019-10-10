@@ -5,8 +5,8 @@ Item {
     id: tabbaritem
     property alias text: itemtext.text
     property bool active: false
-    property int contentHeight: itemtext.contentHeight + 5
-    property int contentWidth: itemtext.contentWidth + 10
+    property int contentHeight: itemtext.contentHeight + 6
+    property int contentWidth: itemtext.contentWidth + 20
 
     signal clicked()
     height: contentHeight

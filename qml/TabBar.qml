@@ -31,15 +31,16 @@ Item {
     }
 
     RowLayout {
-        anchors.fill: parent
-        spacing: 0
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
         
         Repeater {
             id: repeater
             model: privates.sources.length
             TabBarItem {
-                Layout.minimumWidth: contentWidth
-                Layout.minimumHeight: contentHeight
+                Layout.preferredWidth: contentWidth
+                Layout.preferredHeight: contentHeight
+                Layout.maximumWidth: contentWidth
                 Layout.fillWidth: true
                 text: privates.texts[index]
                 active: tabBar.selected == index

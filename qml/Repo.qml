@@ -11,7 +11,7 @@ Item {
         anchors.right: parent.right
 
         Component.onCompleted: {
-            tabBar.addTabItem("qrc:/qml/RepoAuthors.qml", "Authors")
+            tabBar.addTabItem("qrc:/qml/RepoAuthors.qml", "Authors (Top 20)")
             tabBar.addTabItem("qrc:/qml/RepoCommitsPerDay.qml", "Weekday")
             tabBar.select(0)
         }
