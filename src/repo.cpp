@@ -21,7 +21,7 @@ Repository::Repository(QObject *parent)
     git_libgit2_init();
 
     auto timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, Repository::pollHead);
+    connect(timer, &QTimer::timeout, this, &Repository::pollHead);
     timer->start(2000);
 }
 

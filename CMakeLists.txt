@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.13)
 
 project(gitstats LANGUAGES CXX)
 
@@ -47,13 +47,15 @@ target_link_libraries(gitstats
 
 message(STATUS "TEST: ${LIBGIT2_INCLUDES}")
 
-add_custom_command(TARGET gitstats POST_BUILD 
-  COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:git2> ${CMAKE_BINARY_DIR}
-  COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Core> ${CMAKE_BINARY_DIR}
-  COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Gui> ${CMAKE_BINARY_DIR}
-  COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Quick> ${CMAKE_BINARY_DIR}
-  COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Qml> ${CMAKE_BINARY_DIR}
-  COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Network> ${CMAKE_BINARY_DIR}
-  COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Widgets> ${CMAKE_BINARY_DIR}
-)  
 
+if (WIN32)
+  add_custom_command(TARGET gitstats POST_BUILD 
+    COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:git2> ${CMAKE_BINARY_DIR}
+    COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Core> ${CMAKE_BINARY_DIR}
+    COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Gui> ${CMAKE_BINARY_DIR}
+    COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Quick> ${CMAKE_BINARY_DIR}
+    COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Qml> ${CMAKE_BINARY_DIR}
+    COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Network> ${CMAKE_BINARY_DIR}
+    COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:Qt5::Widgets> ${CMAKE_BINARY_DIR}
+  )  
+endif()
