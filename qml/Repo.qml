@@ -12,7 +12,7 @@ Item {
 
         Component.onCompleted: {
             tabBar.addTabItem("qrc:/qml/RepoAuthors.qml", "Authors")
-            tabBar.addTabItem("qrc:/qml/RepoCommitsPerDay.qml", "Dayly")
+            tabBar.addTabItem("qrc:/qml/RepoCommitsPerDay.qml", "Weekday")
             tabBar.select(0)
         }
     }

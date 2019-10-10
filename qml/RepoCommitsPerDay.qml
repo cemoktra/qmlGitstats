@@ -2,13 +2,11 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 
 Item {
-    ListView {
+    PieChart {
         anchors.fill: parent
-        spacing: 0
+        textprop: "weekday"
+        valueprop: "commits"
+        maxprop: "totalCommits"
         model: repoObj.getCommitsPerDay()
-
-        delegate: Label {                
-            text: model.weekday + ": " + model.commits + " commits"
-        }
     }
 }

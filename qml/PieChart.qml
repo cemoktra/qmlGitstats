@@ -5,6 +5,9 @@ Item {
     id: piechart
     anchors.fill: parent
     property alias model: repeater.model
+    property string textprop
+    property string valueprop
+    property string maxprop
 
     Repeater {
         id: repeater
@@ -48,10 +51,10 @@ Item {
 
             Component.onCompleted: {
                 arcStart = repeater.currentArcStart
-                arcEnd = repeater.currentArcStart + (model.commits.toFixed(2) / model.totalCommits.toFixed(2))
-                author = model.author
+                arcEnd = repeater.currentArcStart + (model[piechart.valueprop].toFixed(2) / model[piechart.maxprop].toFixed(2))
+                author = model[piechart.textprop]
                 percent = ((arcEnd - arcStart) * 100).toFixed(2)
-                repeater.currentArcStart = repeater.currentArcStart + (model.commits.toFixed(2) / model.totalCommits.toFixed(2));
+                repeater.currentArcStart = repeater.currentArcStart + (model[piechart.valueprop].toFixed(2) / model[piechart.maxprop].toFixed(2));
             }
 
             MouseArea {
@@ -63,6 +66,7 @@ Item {
                 {
                     var x1 = mouseX - repeater.centerx
                     var y1 = mouseY - repeater.centery
+                    var distance = Math.sqrt(x1 * x1 + y1 * y1)
                     var x2 = repeater.radius / 2
                     var y2 = 0
                     var xy = (x1 * x2 + y1 * y2) / (Math.sqrt(x1 * x1 + y1 * y1) * Math.sqrt(x2 * x2 + y2 * y2))
@@ -74,7 +78,7 @@ Item {
                     tooltip.visible = false
                     for (var i = 0; i < repeater.count; i++)
                     {
-                        if (angle > repeater.itemAt(i).arcStart && angle < repeater.itemAt(i).arcEnd)
+                        if (distance < repeater.radius && angle > repeater.itemAt(i).arcStart && angle < repeater.itemAt(i).arcEnd)
                         {
                             tooltip.text = repeater.itemAt(i).author + " [" + repeater.itemAt(i).percent + "%]"
                             tooltip.visible = true
