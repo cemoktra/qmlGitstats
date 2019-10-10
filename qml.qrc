@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/Main.qml</file>
+        <file>qml/Theme.qml</file>
+        <file>qml/Button.qml</file>
+        <file>qml/Label.qml</file>
+        <file>qml/TabBar.qml</file>
+        <file>qml/TabBarItem.qml</file>
+        <file>qml/OpenRepo.qml</file>
+        <file>qml/Repo.qml</file>
+        <file>qml/RepoCommitsPerDay.qml</file>
+        <file>qml/RepoAuthors.qml</file>
+        <file>qml/PieChart.qml</file>
+    </qresource>        
+</RCC>
