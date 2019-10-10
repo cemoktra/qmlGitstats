@@ -23,10 +23,6 @@ Repository::Repository(QObject *parent)
     auto timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, Repository::pollHead);
     timer->start(2000);
-
-    // TODO: remove
-    //openRepo("C:\\Users\\bscb\\Documents\\QmlMemory");
-    openRepo("C:\\Users\\bscb\\Documents\\gitstats\\libgit2");
 }
 
 Repository::~Repository()
