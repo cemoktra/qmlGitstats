@@ -28,14 +28,16 @@ Item {
             
             onPaint: {
                 var ctx = getContext("2d");
-                ctx.globalAlpha = (repeater.count - index) / repeater.count
+                ctx.globalAlpha = 0.25 + ((repeater.count - index) / (2 * repeater.count))
                 ctx.fillStyle = Theme.secondary_dark
+                ctx.strokeStyle = Theme.secondary
 
                 ctx.beginPath()
                 ctx.moveTo(repeater.centerx, repeater.centery);
                 ctx.arc(repeater.centerx, repeater.centery, repeater.radius, arcStart * Math.PI * 2.0, arcEnd * Math.PI * 2.0)
                 ctx.lineTo(repeater.centerx, repeater.centery);
                 ctx.fill();
+                ctx.stroke();
 
                 var x_ = repeater.centerx + (repeater.radius / 2)
                 var y_ = repeater.centery
