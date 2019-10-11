@@ -3,11 +3,6 @@ cmake_minimum_required(VERSION 3.13)
 project(gitstats LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -30,6 +25,10 @@ set(RESOURCES
 )
 
 add_subdirectory(libgit2)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 if (WIN32)
   set(Qt5_DIR "C:/Qt/5.13.1/mingw73_64/lib/cmake/Qt5")
