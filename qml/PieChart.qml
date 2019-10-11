@@ -7,7 +7,7 @@ Item {
     property alias model: repeater.model
     property string textprop
     property string valueprop
-    property string maxprop
+    property string totalprop
 
     Repeater {
         id: repeater
@@ -53,10 +53,10 @@ Item {
 
             Component.onCompleted: {
                 arcStart = repeater.currentArcStart
-                arcEnd = repeater.currentArcStart + (model[piechart.valueprop].toFixed(2) / model[piechart.maxprop].toFixed(2))
+                arcEnd = repeater.currentArcStart + (model[piechart.valueprop].toFixed(2) / model[piechart.totalprop].toFixed(2))
                 author = model[piechart.textprop]
                 percent = ((arcEnd - arcStart) * 100).toFixed(2)
-                repeater.currentArcStart = repeater.currentArcStart + (model[piechart.valueprop].toFixed(2) / model[piechart.maxprop].toFixed(2));
+                repeater.currentArcStart = repeater.currentArcStart + (model[piechart.valueprop].toFixed(2) / model[piechart.totalprop].toFixed(2));
             }
 
             MouseArea {
@@ -77,7 +77,7 @@ Item {
                         angle = 2 * Math.PI - angle
                     angle = angle / (2 * Math.PI)
                     
-                    tooltip.visible = false
+                    tooltip.visible = false                    
                     for (var i = 0; i < repeater.count; i++)
                     {
                         if (distance < repeater.radius && angle > repeater.itemAt(i).arcStart && angle < repeater.itemAt(i).arcEnd)

@@ -13,6 +13,7 @@ public:
         authorRole = Qt::UserRole + 1,
         commitsRole,
         totalCommitsRole,
+        maxCommitsRole,
     };
 
     CommitsByAuthor(QObject *parent = nullptr);
@@ -30,6 +31,7 @@ private:
     std::set<std::pair<int, std::string>, std::greater<std::pair<int, std::string>>> m_data;
     
     int m_commits;
+    int m_maxCommits;
 };
 
 class CommitsByAuthorProxy : public QSortFilterProxyModel

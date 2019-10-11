@@ -11,5 +11,6 @@
         <file>qml/RepoCommitsPerDay.qml</file>
         <file>qml/RepoAuthors.qml</file>
         <file>qml/PieChart.qml</file>
+        <file>qml/BlockChart.qml</file>
     </qresource>        
 </RCC>

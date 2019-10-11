@@ -12,6 +12,7 @@ public:
         weekdayRole = Qt::UserRole + 1,
         commitsRole,
         totalCommitsRole,
+        maxCommitsRole,
     };
 
     CommitsPerDay(QObject *parent = nullptr);
@@ -30,4 +31,5 @@ public:
 private:
     std::set<std::pair<int, int>> m_data;
     int m_commits;
+    int m_maxCommits;
 };

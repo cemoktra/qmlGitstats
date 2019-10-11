@@ -5,6 +5,7 @@
 CommitsByAuthor::CommitsByAuthor(QObject *parent) 
     : CommitHandler(parent) 
     , m_commits(0)
+    , m_maxCommits(0)
 {
 }
 
@@ -13,6 +14,7 @@ void CommitsByAuthor::start()
     beginResetModel();
     m_data.clear();
     m_commits = 0;
+    m_maxCommits = 0;
 }
 
 void CommitsByAuthor::handleCommit(git_repository *repo, git_commit *commit)
@@ -23,11 +25,13 @@ void CommitsByAuthor::handleCommit(git_repository *repo, git_commit *commit)
     auto find_result = std::find_if(m_data.begin(), m_data.end(), [&](const std::pair<int, std::string> &data) { return 0 == data.second.compare(author);});
     if (find_result != m_data.end()) {
         auto newCount = find_result->first + 1;
+        m_maxCommits = std::max(m_maxCommits, newCount);
         m_data.erase(find_result);
         m_data.insert(std::make_pair(newCount, author));
-    } else
+    } else{
+        m_maxCommits = std::max(m_maxCommits, 1);
         m_data.insert(std::make_pair(1, author));
-    
+    }
 }
 
 void CommitsByAuthor::finished()
@@ -44,6 +48,8 @@ QVariant CommitsByAuthor::data(const QModelIndex &index, int role) const
         return iter->first;
     else if (role == CommitsByAuthorRoles::totalCommitsRole)
         return m_commits;
+    else if (role == CommitsByAuthorRoles::maxCommitsRole)
+        return m_maxCommits;
     return QVariant();
 }
 
@@ -58,6 +64,7 @@ QHash<int, QByteArray> CommitsByAuthor::roleNames() const
     defaultNames.insert(CommitsByAuthorRoles::authorRole, QString("author").toLatin1());
     defaultNames.insert(CommitsByAuthorRoles::commitsRole, QString("commits").toLatin1());
     defaultNames.insert(CommitsByAuthorRoles::totalCommitsRole, QString("totalCommits").toLatin1());
+    defaultNames.insert(CommitsByAuthorRoles::maxCommitsRole, QString("maxCommits").toLatin1());
     return defaultNames;
 }
 

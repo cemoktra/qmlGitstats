@@ -6,7 +6,7 @@ Item {
         anchors.fill: parent
         textprop: "author"
         valueprop: "commits"
-        maxprop: "totalCommits"
+        totalprop: "totalCommits"
         model: repoObj.getTopAuthors(20)
     }
 }

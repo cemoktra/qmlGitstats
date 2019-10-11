@@ -5,6 +5,7 @@
 CommitsPerDay::CommitsPerDay(QObject *parent) 
     : CommitHandler(parent) 
     , m_commits(0)
+    , m_maxCommits(0)
 {
 }
 
@@ -12,23 +13,28 @@ void CommitsPerDay::start()
 {
     beginResetModel();
     m_commits = 0;
+    m_maxCommits = 0;
     m_data.clear();
 }
 
 void CommitsPerDay::handleCommit(git_repository *repo, git_commit *commit)
 {
+    m_commits++;
+
     std::time_t time = git_commit_author(commit)->when.time;
     const std::tm *time_out = std::localtime(&time);
 
     auto find_result = std::find_if(m_data.begin(), m_data.end(), [&](const std::pair<int, int> &data) { return data.first == time_out->tm_wday;});
-
     if (find_result != m_data.end()) {
         auto newCount = find_result->second + 1;
+        m_maxCommits = std::max(m_maxCommits, newCount);
         m_data.erase(find_result);
         m_data.insert(std::make_pair(time_out->tm_wday, newCount));
-    } else
+    } else {
+        m_maxCommits = std::max(m_maxCommits, 1);
         m_data.insert(std::make_pair(time_out->tm_wday, 1));
-    m_commits++;
+    }
+    
 }
 
 void CommitsPerDay::finished()
@@ -55,6 +61,8 @@ QVariant CommitsPerDay::data(const QModelIndex &index, int role) const
         }
     } else if (role == CommitsPerDayRoles::totalCommitsRole)
         return m_commits;
+    else if (role == CommitsPerDayRoles::maxCommitsRole)
+        return m_maxCommits;
     return QVariant();
 }
 
@@ -69,5 +77,6 @@ QHash<int, QByteArray> CommitsPerDay::roleNames() const
     defaultNames.insert(CommitsPerDayRoles::weekdayRole, QString("weekday").toLatin1());
     defaultNames.insert(CommitsPerDayRoles::commitsRole, QString("commits").toLatin1());
     defaultNames.insert(CommitsPerDayRoles::totalCommitsRole, QString("totalCommits").toLatin1());
+    defaultNames.insert(CommitsPerDayRoles::maxCommitsRole, QString("maxCommits").toLatin1());
     return defaultNames;
 }
