@@ -19,7 +19,7 @@ jobs:
       run: sudo apt-get install libtbb-dev
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
-        with:
+      with:
           version: 5.13.1
           modules: qtquick qtcore qtgui qtqml qtnetwork qtwidgets
     - name: configure
