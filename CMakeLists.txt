@@ -24,7 +24,7 @@ set(RESOURCES
   qml.qrc
 )
 
-add_subdirectory(libgit2)
+add_subdirectory(libgit2 EXCLUDE_FROM_ALL)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
